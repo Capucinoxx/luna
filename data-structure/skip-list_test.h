@@ -1,3 +1,6 @@
+#ifndef LUNA_SKIP_LIST_TEST_H
+#define LUNA_SKIP_LIST_TEST_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "skip-list.h"
@@ -7,15 +10,13 @@ stats *_get_present_pairs();
 stats *_get_absent_pairs();
 
 
-int test_skipList() {
+void test_skipList() {
   printf("> rapport lorsque l'on recherche des cles presentes\n");
   stats_print(_get_present_pairs());
   puts(SUB_DIV);
 
   printf("> rapport lorsque l'on recherche des cles absentes\n");
   stats_print(_get_absent_pairs());
-
-  return 0;
 }
 
 stats *_get_present_pairs() {
@@ -65,3 +66,5 @@ stats *_get_absent_pairs() {
   skipList_free(sl);
   return st;
 }
+
+#endif //LUNA_SKIP_LIST_TEST_H
