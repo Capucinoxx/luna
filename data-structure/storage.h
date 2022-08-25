@@ -4,6 +4,7 @@
 #include "skip-list.h"
 
 #define NB_MEM_TABLES 10
+#define FLUSH_THRESHOLD 128
 
 typedef struct storage_output {
   t_val val;
@@ -12,9 +13,7 @@ typedef struct storage_output {
 
 
 typedef struct storage {
-  skipList *memTable[NB_MEM_TABLES];
-
-  unsigned int flushThreshold;
+  skipList *mem;
 } storage;
 
 /**
