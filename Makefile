@@ -1,5 +1,5 @@
 SRC_DIRS = ./data-structure/
-CC = gcc
+CC = gcc -g
 RM = rm -rf
 SRCS = $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
 OBJS = $(addsuffix .o,$(basename $(SRCS)))
