@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include "sst.h"
+
+#ifdef __unix__
+#define O_BINARY 0x00
+#endif
 
 sst *sst_new() {
   sst *s = (sst *)malloc(sizeof(sst));
