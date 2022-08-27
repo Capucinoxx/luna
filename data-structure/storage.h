@@ -2,6 +2,7 @@
 #define LUNA_STORAGE_H
 
 #include "flush.h"
+#include "sst.h"
 #include "skip-list.h"
 
 #define NB_MEM_TABLES 10
@@ -15,6 +16,7 @@ typedef struct storage_output {
 
 typedef struct storage {
   skipList *mem;
+  sst *sst;
   flush *f;
 } storage;
 
@@ -44,7 +46,5 @@ void storage_put(storage *s, t_key key, t_val val);
  * @return      structure donnant la valeur et si cette valeur a été trouvée
  */
 storage_output storage_get(storage *s, t_key key);
-
-void storage_free(storage *s);
 
 #endif //LUNA_STORAGE_H

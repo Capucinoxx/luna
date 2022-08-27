@@ -9,13 +9,21 @@
 stats *_get_present_pairs_without_flush();
 stats *_get_present_pairs_with_flush();
 
+void teardown() {
+  remove(FILENAME);
+}
+
 void test_storage() {
+  remove(FILENAME);
+
   puts("> rapport lorsque l'on recherche des cles presentes sans debordement");
   stats_print(_get_present_pairs_without_flush());
   puts(SUB_DIV);
+  teardown();
 
   puts("> rapport lorsque l'on recherche des cles presentes avec debordement");
   stats_print(_get_present_pairs_with_flush());
+  teardown();
 }
 
 stats *_get_present_pairs_without_flush() {
@@ -47,10 +55,10 @@ stats *_get_present_pairs_with_flush() {
 
   storage *s = storage_new();
 
-  for (int i = 0; i < 200; ++i)
+  for (int i = 0; i < 1000; ++i)
     storage_put(s, i, i);
 
-  for (int i = 0; i < 200; ++i) {
+  for (int i = 0; i < 1000; ++i) {
     storage_output res = storage_get(s, i);
     if (res.found)
       st->success++;

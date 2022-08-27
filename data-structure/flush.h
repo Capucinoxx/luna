@@ -2,6 +2,7 @@
 #define LUNA_FLUSH_H
 
 #include <pthread.h>
+#include "sst.h"
 #include "skip-list.h"
 
 #define MAX_ELEMS_IN_FLUSH_QUEUE 10
@@ -9,11 +10,15 @@
 typedef struct _thread_flush_t {
   unsigned int id;
   skipList *sl;
+
+  sst *sst;
 } _thread_flush_t;
 
 typedef struct flush {
   _thread_flush_t *queue[MAX_ELEMS_IN_FLUSH_QUEUE];
   pthread_t tid[MAX_ELEMS_IN_FLUSH_QUEUE];
+
+  sst *sst;
 } flush;
 
 /**
@@ -29,7 +34,7 @@ void *_flush(void *arg);
  *
  * @return nouvelle instance
  */
-flush *flush_new();
+flush *flush_new(sst *sst);
 
 /**
  * insère une nouvelle table en mémoire à se faire

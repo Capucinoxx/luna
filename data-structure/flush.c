@@ -7,14 +7,17 @@
 void *_flush(void *arg) {
   _thread_flush_t *data = (_thread_flush_t *)arg;
 
-  printf("data -> %d\n", data->id);
+  sst_merge(data->sst, data->sl);
+
   skipList_free(data->sl);
 
   pthread_exit(0);
 }
 
-flush *flush_new() {
+flush *flush_new(sst *sst) {
   flush *f = (flush *)malloc(sizeof(flush));
+
+  f->sst = sst;
 
   for (int i = 0; i < MAX_ELEMS_IN_FLUSH_QUEUE; ++i)
     f->queue[i] = NULL;
@@ -31,6 +34,7 @@ void flush_append(flush *f, skipList *sl) {
   _thread_flush_t *data = (_thread_flush_t *)malloc(sizeof(_thread_flush_t));
   data->id = id;
   data->sl = sl;
+  data->sst = f->sst;
   f->queue[id] = data;
 
   pthread_create(&tid, NULL, _flush, data);
